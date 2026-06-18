@@ -1,0 +1,19 @@
+{
+  "title": "Europe by Rail — July 2026 (Milan · Amalfi · Bernina · Paris · Barcelona · Madrid)",
+  "defaults": { "results": 4 },
+  "legs": [
+    { "from": "Amsterdam", "to": "Milano", "date": "2026-07-04", "mode": "flight", "note": "Book a morning flight so Como is doable the same afternoon." },
+    { "from": "Milano Centrale", "to": "Como", "date": "2026-07-04", "time": "14:00", "mode": "rail", "note": "Arrival-afternoon day trip to Lake Como." },
+    { "from": "Milano Centrale", "to": "Venezia Santa Lucia", "date": "2026-07-05", "time": "08:30", "mode": "rail", "note": "Day trip (or upgrade to overnight)." },
+    { "from": "Milano", "to": "Napoli", "date": "2026-07-06", "time": "08:00", "mode": "flight", "note": "FLY, do not train: summer-2026 works inflate Milan–Naples rail to ~7h and you'd miss the last Positano ferry." },
+    { "from": "Napoli (Molo Beverello)", "to": "Positano", "date": "2026-07-06", "mode": "ferry", "manual": true, "note": "Direct ferries ~08:35–15:35, ~80–90 min. Aim for 14:05/14:40; book ahead. No public API — operator sites (NLG, Positano.com)." },
+    { "from": "Positano", "to": "Napoli", "date": "2026-07-08", "mode": "ferry", "manual": true, "note": "Return ferry." },
+    { "from": "Napoli", "to": "Milano", "date": "2026-07-09", "time": "08:00", "mode": "flight", "note": "Fly back north (rail still ~7h due to works)." },
+    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-09", "time": "15:00", "mode": "rail", "note": "Position for the Bernina Express; overnight in Tirano." },
+    { "from": "Tirano", "to": "Chur", "date": "2026-07-10", "time": "08:00", "mode": "rail", "note": "Bernina Express (panoramic). Seat reservation required + sells out — book on rhb.ch." },
+    { "from": "Chur", "to": "Paris", "date": "2026-07-12", "time": "08:00", "mode": "rail", "note": "Via Basel/Zürich + TGV Lyria." },
+    { "from": "Paris", "to": "Barcelona", "date": "2026-07-14", "time": "09:00", "mode": "rail", "note": "Direct TGV ~6.5h, only ~2/day — book early." },
+    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-16", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
+    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-18", "mode": "flight", "note": "Fly home." }
+  ]
+}
