@@ -1,0 +1,28 @@
+{
+  "name": "journio",
+  "version": "0.1.0",
+  "description": "Multi-provider journey planner CLI for humans and agents",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "journio": "src/cli.ts"
+  },
+  "scripts": {
+    "start": "bun run src/cli.ts",
+    "test": "bun test",
+    "typecheck": "bun x tsc --noEmit"
+  },
+  "keywords": [
+    "travel",
+    "trains",
+    "journey-planner",
+    "transit",
+    "cli",
+    "agents",
+    "hafas"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.5.0"
+  }
+}
