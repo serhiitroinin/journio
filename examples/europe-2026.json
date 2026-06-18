@@ -9,7 +9,7 @@
     { "from": "Napoli (Molo Beverello)", "to": "Positano", "date": "2026-07-06", "mode": "ferry", "manual": true, "note": "Direct ferries ~08:35–15:35, ~80–90 min. Aim for 14:05/14:40; book ahead. No public API — operator sites (NLG, Positano.com)." },
     { "from": "Positano", "to": "Napoli", "date": "2026-07-08", "mode": "ferry", "manual": true, "note": "Return ferry." },
     { "from": "Napoli", "to": "Milano", "date": "2026-07-09", "time": "08:00", "mode": "flight", "note": "Fly back north (rail still ~7h due to works)." },
-    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-09", "time": "15:00", "mode": "rail", "note": "Position for the Bernina Express; overnight in Tirano." },
+    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-09", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (book trenord.it / Trenitalia). Marked manual: Italian domestic regional isn't in the open APIs, which otherwise misroute this via Switzerland. Position for the Bernina; overnight Tirano." },
     { "from": "Tirano", "to": "Chur", "date": "2026-07-10", "time": "08:00", "mode": "rail", "note": "Bernina Express (panoramic). Seat reservation required + sells out — book on rhb.ch." },
     { "from": "Chur", "to": "Paris", "date": "2026-07-12", "time": "08:00", "mode": "rail", "note": "Via Basel/Zürich + TGV Lyria." },
     { "from": "Paris", "to": "Barcelona", "date": "2026-07-14", "time": "09:00", "mode": "rail", "note": "Direct TGV ~6.5h, only ~2/day — book early." },
