@@ -3,8 +3,9 @@
 
 import { parseArgs } from "node:util";
 import { readFileSync } from "node:fs";
-import type { Mode } from "./types";
+import type { Mode, ModePref, ProviderContext } from "./types";
 import { ALL_PROVIDERS, defaultContext } from "./registry";
+import { providerStatus } from "./lib/gateway";
 import { plan as planItinerary, search, type Itinerary } from "./planner";
 import { journeysTable, planMarkdown } from "./format";
 
@@ -13,13 +14,13 @@ const HELP = `journio — multi-provider journey planner
 USAGE
   journio search <from> <to> [options]   Search one leg across all providers
   journio plan <itinerary.json|yaml>     Resolve a whole itinerary
-  journio providers                      List providers and key status
+  journio providers                      List providers and how they're reached
 
 OPTIONS
   --date YYYY-MM-DD   Travel date
   --time HH:MM        Depart at/after (or arrive-by with --arrive-by)
   --arrive-by         Treat --time as latest arrival
-  --mode MODE         rail | flight | bus | drive | ferry
+  --mode MODE         Transport mode: rail | flight | bus | drive | ferry
   --providers a,b     Restrict to named providers
   --results N         Max results per provider (default 4)
   --json              Machine-readable JSON (for agents)
@@ -27,9 +28,16 @@ OPTIONS
   --out FILE          Write plan markdown to FILE
   --help
 
+AUTH (bring-your-own-keys vs hosted journio cloud)
+  --key KEY           journio cloud key (or env JOURNIO_KEY) — one key, all providers
+  --access MODE       auto (default) | direct (your keys only) | hosted (cloud only)
+  --api-url URL       Gateway base URL (or env JOURNIO_API_URL)
+                      Direct mode reads upstream keys from env (AMADEUS_*, GOOGLE_MAPS_API_KEY).
+
 EXAMPLES
   journio search "Tirano" "Chur" --date 2026-07-10 --time 08:00
   journio search Milano Napoli --mode rail --json
+  journio search Milano Napoli --mode flight --key jk_live_... --access hosted
   journio plan examples/europe-2026.json --out plan.md`;
 
 async function loadItinerary(path: string): Promise<Itinerary> {
@@ -59,6 +67,9 @@ async function main() {
       json: { type: "boolean" },
       raw: { type: "boolean" },
       out: { type: "string" },
+      key: { type: "string" },
+      access: { type: "string" },
+      "api-url": { type: "string" },
       help: { type: "boolean" },
     },
   });
@@ -69,24 +80,24 @@ async function main() {
     return;
   }
 
-  const ctx = defaultContext();
+  // CLI flags override env-derived defaults.
+  const overrides: Partial<ProviderContext> = {};
+  if (values.key) overrides.hostedKey = values.key;
+  if (values["api-url"]) overrides.hostedBaseUrl = values["api-url"];
+  if (values.access) overrides.modePref = values.access as ModePref;
+  const ctx = defaultContext(overrides);
+
   const providerNames = values.providers?.split(",").map((s) => s.trim());
   const results = values.results ? Number(values.results) : undefined;
 
   if (cmd === "providers") {
-    const list = ALL_PROVIDERS.map((p) => ({
-      name: p.name,
-      modes: p.modes,
-      available: p.available(ctx),
-      needsKey: p.needsKey ?? [],
-    }));
+    const list = ALL_PROVIDERS.map((p) => providerStatus(p, ctx));
     if (values.json) {
       console.log(JSON.stringify(list, null, 2));
       return;
     }
     for (const p of list) {
-      const status = p.available ? "ready" : `needs ${p.needsKey.join(", ")}`;
-      console.log(`${p.available ? "●" : "○"} ${p.name.padEnd(16)} [${p.modes.join(", ")}]  ${status}`);
+      console.log(`${p.available ? "●" : "○"} ${p.name.padEnd(16)} [${p.modes.join(", ")}]  ${p.source}`);
     }
     return;
   }
