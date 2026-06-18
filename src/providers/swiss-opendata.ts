@@ -4,8 +4,9 @@
 
 import type { Journey, JourneyQuery, Leg, Mode, Provider, ProviderContext } from "../types";
 import { parseDayDuration, diffMin } from "../lib/time";
+import { resolveAccess } from "../lib/gateway";
 
-const BASE = "https://transport.opendata.ch/v1";
+export const UPSTREAM = "https://transport.opendata.ch/v1";
 
 function mapCategory(category?: string): Mode {
   if (!category) return "rail";
@@ -15,7 +16,7 @@ function mapCategory(category?: string): Mode {
   return "rail"; // IC, IR, R, S, PE (panorama), RE, EC, TGV, ...
 }
 
-function normalize(c: any): Journey {
+function normalize(c: any, access: "direct" | "hosted"): Journey {
   const legs: Leg[] = (c.sections ?? [])
     .map((s: any): Leg | null => {
       if (s.walk && !s.journey) {
@@ -57,14 +58,18 @@ function normalize(c: any): Journey {
     legs,
     products: (c.products ?? []) as string[],
     price: null, // opendata.ch does not expose fares
+    access,
   };
 }
 
 export const swissOpendata: Provider = {
   name: "swiss-opendata",
   modes: ["rail", "bus", "ferry"],
-  available: () => true,
+  upstreamBase: UPSTREAM,
+  directReady: () => true, // keyless upstream
   async search(query: JourneyQuery, ctx: ProviderContext): Promise<Journey[]> {
+    const access = resolveAccess(swissOpendata, ctx);
+    if (!access) return [];
     try {
       const params = new URLSearchParams({
         from: query.from,
@@ -74,8 +79,8 @@ export const swissOpendata: Provider = {
       if (query.date) params.set("date", query.date);
       if (query.time) params.set("time", query.time);
       if (query.arriveBy) params.set("isArrivalTime", "1");
-      const res = await ctx.fetchJson(`${BASE}/connections?${params.toString()}`);
-      const journeys = (res?.connections ?? []).map(normalize);
+      const res = await ctx.fetchJson(`${access.baseUrl}/connections?${params.toString()}`, { headers: access.headers });
+      const journeys = (res?.connections ?? []).map((c: any) => normalize(c, access.mode));
       if (query.includeRaw) journeys.forEach((jn: Journey, i: number) => (jn.raw = res.connections[i]));
       return journeys;
     } catch {

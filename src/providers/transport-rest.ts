@@ -5,8 +5,9 @@
 
 import type { Journey, JourneyQuery, Leg, Mode, Provider, ProviderContext } from "../types";
 import { diffMin, toIsoLocal } from "../lib/time";
+import { resolveAccess } from "../lib/gateway";
 
-const BASE = "https://v6.db.transport.rest";
+export const UPSTREAM = "https://v6.db.transport.rest";
 
 function mapProduct(product?: string): Mode {
   switch (product) {
@@ -21,14 +22,14 @@ function mapProduct(product?: string): Mode {
   }
 }
 
-async function geocode(name: string, ctx: ProviderContext): Promise<string | undefined> {
-  const url = `${BASE}/locations?query=${encodeURIComponent(name)}&results=1&poi=false&addresses=false`;
-  const res = await ctx.fetchJson(url);
+async function geocode(baseUrl: string, headers: Record<string, string>, name: string, ctx: ProviderContext): Promise<string | undefined> {
+  const url = `${baseUrl}/locations?query=${encodeURIComponent(name)}&results=1&poi=false&addresses=false`;
+  const res = await ctx.fetchJson(url, { headers });
   const first = Array.isArray(res) ? res[0] : undefined;
   return first?.id;
 }
 
-function normalize(j: any): Journey {
+function normalize(j: any, access: "direct" | "hosted"): Journey {
   const legs: Leg[] = (j.legs ?? []).map((l: any) => ({
     mode: l.walking ? "walk" : mapProduct(l.line?.product),
     line: l.line?.name,
@@ -55,16 +56,21 @@ function normalize(j: any): Journey {
     legs,
     products,
     price: j.price?.amount != null ? { amount: j.price.amount, currency: j.price.currency ?? "EUR" } : null,
+    access,
   };
 }
 
 export const transportRest: Provider = {
   name: "transport-rest",
   modes: ["rail", "bus", "ferry"],
-  available: () => true,
+  upstreamBase: UPSTREAM,
+  directReady: () => true, // keyless upstream
   async search(query: JourneyQuery, ctx: ProviderContext): Promise<Journey[]> {
+    const access = resolveAccess(transportRest, ctx);
+    if (!access) return [];
     try {
-      const [fromId, toId] = await Promise.all([geocode(query.from, ctx), geocode(query.to, ctx)]);
+      const { baseUrl, headers } = access;
+      const [fromId, toId] = await Promise.all([geocode(baseUrl, headers, query.from, ctx), geocode(baseUrl, headers, query.to, ctx)]);
       if (!fromId || !toId) return [];
       const params = new URLSearchParams({
         from: fromId,
@@ -75,8 +81,8 @@ export const transportRest: Provider = {
       });
       const when = toIsoLocal(query.date, query.time);
       if (when) params.set(query.arriveBy ? "arrival" : "departure", when);
-      const res = await ctx.fetchJson(`${BASE}/journeys?${params.toString()}`);
-      const journeys = (res?.journeys ?? []).map(normalize);
+      const res = await ctx.fetchJson(`${baseUrl}/journeys?${params.toString()}`, { headers });
+      const journeys = (res?.journeys ?? []).map((j: any) => normalize(j, access.mode));
       if (query.includeRaw) journeys.forEach((jn: Journey, i: number) => (jn.raw = res.journeys[i]));
       return journeys;
     } catch {

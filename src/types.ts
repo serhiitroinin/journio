@@ -6,6 +6,12 @@
 
 export type Mode = "rail" | "flight" | "bus" | "drive" | "ferry" | "walk";
 
+/** How a provider's request reaches the upstream API. */
+export type AccessMode = "direct" | "hosted";
+
+/** User preference for access mode. `auto` picks per provider (see gateway). */
+export type ModePref = "auto" | "direct" | "hosted";
+
 export interface Place {
   name: string;
   /** Provider-native station/stop id, when known. */
@@ -47,6 +53,8 @@ export interface Journey {
   /** Coarse product labels, e.g. ["PE"], ["TGV"], ["nationalExpress"]. */
   products: string[];
   price?: Price | null;
+  /** Which access path produced this result (BYOK vs hosted cloud). */
+  access?: AccessMode;
   /** Original provider payload, only populated when the caller asks for it. */
   raw?: unknown;
 }
@@ -65,21 +73,37 @@ export interface JourneyQuery {
   includeRaw?: boolean;
 }
 
-/** Dependencies handed to a provider — injected so providers stay testable. */
+/**
+ * Dependencies handed to a provider — injected so providers stay testable.
+ *
+ * Auth model:
+ *  - `env` holds the user's own upstream API keys (BYOK / direct mode).
+ *  - `hostedKey` is a single journio cloud key; when set, providers may route
+ *    through the gateway at `hostedBaseUrl` instead of holding upstream keys.
+ *  - `modePref` controls the choice (see src/lib/gateway.ts).
+ */
 export interface ProviderContext {
   fetchJson: (url: string, init?: RequestInit) => Promise<any>;
   env: Record<string, string | undefined>;
+  /** journio cloud key; enables hosted access when present. */
+  hostedKey?: string;
+  /** Gateway base URL (default https://api.journio.dev/v1). */
+  hostedBaseUrl?: string;
+  /** auto (default) | direct (BYOK only) | hosted (cloud only). */
+  modePref?: ModePref;
 }
 
 export interface Provider {
-  /** Stable short id, shown in output and used by --providers filtering. */
+  /** Stable short id; shown in output, used by --providers, and as the gateway namespace. */
   name: string;
   /** Modes this provider can return. */
   modes: Mode[];
-  /** Env var names required to enable the provider; omit/empty if none. */
+  /** Upstream API base URL used in direct (BYOK) mode. */
+  upstreamBase: string;
+  /** Env var names required for direct mode; omit/empty when the upstream is keyless. */
   needsKey?: string[];
-  /** True when the provider can run given the current environment. */
-  available(ctx: ProviderContext): boolean;
+  /** True when direct mode can run (keyless upstream, or required env keys present). */
+  directReady(env: Record<string, string | undefined>): boolean;
   /** Query the backend and return normalized journeys. Must never throw. */
   search(query: JourneyQuery, ctx: ProviderContext): Promise<Journey[]>;
 }

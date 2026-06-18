@@ -4,6 +4,7 @@
 
 import type { Journey, JourneyQuery, Mode, Provider, ProviderContext } from "./types";
 import { ALL_PROVIDERS } from "./registry";
+import { chooseMode } from "./lib/gateway";
 
 export interface SearchOptions {
   /** Restrict to these modes (default: all). */
@@ -14,7 +15,7 @@ export interface SearchOptions {
 
 function pickProviders(ctx: ProviderContext, opts: SearchOptions): Provider[] {
   return ALL_PROVIDERS.filter((p) => {
-    if (!p.available(ctx)) return false;
+    if (chooseMode(p, ctx) === null) return false; // unavailable in current auth mode
     if (opts.providers && !opts.providers.includes(p.name)) return false;
     if (opts.mode && !p.modes.includes(opts.mode)) return false;
     return true;
