@@ -4,16 +4,16 @@
   "legs": [
     { "from": "Amsterdam", "to": "Milano", "date": "2026-07-04", "mode": "flight", "note": "Book a morning flight so Como is doable the same afternoon." },
     { "from": "Milano Centrale", "to": "Como", "date": "2026-07-04", "time": "14:00", "mode": "rail", "note": "Arrival-afternoon day trip to Lake Como." },
-    { "from": "Milano Centrale", "to": "Venezia Santa Lucia", "date": "2026-07-05", "time": "08:30", "mode": "rail", "note": "Day trip (or upgrade to overnight)." },
-    { "from": "Milano Centrale", "to": "Napoli Centrale", "date": "2026-07-06", "time": "07:50", "mode": "rail", "manual": true, "note": "By train (preference). Frecciarossa/Italo — but summer-2026 works inflate it to ~7h (not the usual ~4h07). Earliest Italo 07:50→15:03 is the only departure that nearly catches the last direct Positano ferry (15:35) and it's tight; otherwise plan a car transfer Naples→Positano or overnight in Naples. Book trenitalia.com / italotreno.com (Italian domestic not in open APIs)." },
-    { "from": "Napoli (Molo Beverello)", "to": "Positano", "date": "2026-07-06", "mode": "ferry", "manual": true, "note": "Direct ferries ~08:35–15:35, ~80–90 min. Aim for 14:05/14:40; book ahead. No public API — operator sites (NLG, Positano.com)." },
-    { "from": "Positano", "to": "Napoli", "date": "2026-07-08", "mode": "ferry", "manual": true, "note": "Return ferry." },
-    { "from": "Napoli", "to": "Milano", "date": "2026-07-09", "time": "08:00", "mode": "flight", "note": "Fly back north (rail still ~7h due to works)." },
-    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-09", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (book trenord.it / Trenitalia). Marked manual: Italian domestic regional isn't in the open APIs, which otherwise misroute this via Switzerland. Position for the Bernina; overnight Tirano." },
-    { "from": "Tirano", "to": "Chur", "date": "2026-07-10", "time": "08:00", "mode": "rail", "note": "Bernina Express (panoramic). Seat reservation required + sells out — book on rhb.ch." },
-    { "from": "Chur", "to": "Paris", "date": "2026-07-12", "time": "08:00", "mode": "rail", "note": "Via Basel/Zürich + TGV Lyria." },
-    { "from": "Paris", "to": "Barcelona", "date": "2026-07-14", "time": "09:00", "mode": "rail", "note": "Direct TGV ~6.5h, only ~2/day — book early." },
-    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-16", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
-    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-18", "mode": "flight", "note": "Fly home." }
+    { "from": "Milano Centrale", "to": "Venezia Santa Lucia", "date": "2026-07-05", "time": "08:30", "mode": "rail", "note": "Day trip. NOTE: dropping this gives Amalfi a needed extra day — see plan caveats." },
+    { "from": "Milano Centrale", "to": "Napoli Centrale", "date": "2026-07-06", "time": "07:50", "mode": "rail", "manual": true, "note": "By train (preference). Frecciarossa/Italo — but summer-2026 works inflate it to ~7h (not the usual ~4h07). Earliest Italo 07:50→15:03 is the only departure that nearly catches the last Positano ferry (15:35); else car transfer or overnight Naples. Book trenitalia.com / italotreno.com." },
+    { "from": "Napoli (Molo Beverello)", "to": "Positano", "date": "2026-07-06", "mode": "ferry", "manual": true, "note": "Aim for the latest catchable sailing; if the 7h train lands ~15:03, the 15:35 ferry is a sprint — fallback is a car transfer. Operator sites (NLG, Positano.com)." },
+    { "from": "Positano", "to": "Napoli", "date": "2026-07-08", "mode": "ferry", "manual": true, "note": "EARLY ferry — Jul 8 is the repositioning day to reach Tirano before the booked Bernina. Amalfi = 2 nights (Jul 6, 7), depart Jul 8 AM." },
+    { "from": "Napoli", "to": "Milano", "date": "2026-07-08", "time": "11:00", "mode": "flight", "note": "MUST fly, not train — the same-day hop to Tirano for the booked Bernina is impossible with the ~7h train. Naples→Milan ~1h20." },
+    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-08", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (trenord.it). Arrive Tirano evening Jul 8 → overnight, ready for the 08:06 Bernina. Marked manual: Italian domestic regional isn't in the open APIs (they misroute via Switzerland)." },
+    { "from": "Tirano", "to": "Chur", "date": "2026-07-09", "time": "08:06", "mode": "rail", "note": "BOOKED — Bernina Express, Tirano 08:06 → Chur 12:31, Jul 9. Panoramic, seat reservation held (rhb.ch)." },
+    { "from": "Chur", "to": "Paris", "date": "2026-07-11", "time": "08:00", "mode": "rail", "note": "Via Basel/Zürich + TGV Lyria. ~6.5–7h, full travel day. Two Switzerland nights (Jul 9, 10) before this." },
+    { "from": "Paris", "to": "Barcelona", "date": "2026-07-13", "time": "09:00", "mode": "rail", "note": "Direct TGV ~6.5h, only ~2/day — book early." },
+    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-15", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
+    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-17", "mode": "flight", "note": "Fly home. Trip now ends Jul 17 (a day earlier) because the Bernina booking pulled the back half forward." }
   ]
 }
