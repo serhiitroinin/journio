@@ -1,7 +1,7 @@
 {
   "name": "journio",
-  "version": "0.1.0",
-  "description": "Multi-provider journey planner CLI for humans and agents",
+  "version": "0.2.0",
+  "description": "Multi-provider journey planner CLI for humans and agents — bring your own keys or one journio cloud key",
   "type": "module",
   "license": "MIT",
   "bin": {
@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "bun run src/cli.ts",
+    "gateway": "bun run gateway/server.ts",
     "test": "bun test",
     "typecheck": "bun x tsc --noEmit"
   },
