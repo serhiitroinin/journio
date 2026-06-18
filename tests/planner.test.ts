@@ -7,7 +7,8 @@ function fakeProvider(name: string, journeys: Journey[]): Provider {
   return {
     name,
     modes: ["rail"],
-    available: () => true,
+    upstreamBase: "https://fake.example",
+    directReady: () => true,
     async search() {
       return journeys;
     },

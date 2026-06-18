@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import type { ProviderContext } from "../src/types";
+import { chooseMode } from "../src/lib/gateway";
 import { transportRest } from "../src/providers/transport-rest";
 import { swissOpendata } from "../src/providers/swiss-opendata";
 import { amadeus } from "../src/providers/amadeus";
@@ -54,6 +55,25 @@ describe("transport-rest", () => {
     expect(j.products).toEqual(["national", "nationalExpress"]);
     expect(j.price).toEqual({ amount: 89.9, currency: "EUR" });
     expect(j.legs[1].mode).toBe("rail");
+    expect(j.access).toBe("direct");
+  });
+
+  test("routes through the gateway in hosted mode", async () => {
+    let calledUrl = "";
+    const ctx: ProviderContext = {
+      env: {},
+      hostedKey: "jk_demo",
+      hostedBaseUrl: "https://gw.example/v1",
+      modePref: "hosted",
+      async fetchJson(url: string) {
+        calledUrl = url;
+        if (url.includes("/locations")) return [{ id: "1", name: "X" }];
+        return { journeys: [{ legs: [], price: null }] };
+      },
+    };
+    const [j] = await transportRest.search({ from: "A", to: "B" }, ctx);
+    expect(calledUrl).toContain("https://gw.example/v1/transport-rest/");
+    expect(j.access).toBe("hosted");
   });
 
   test("returns [] when geocoding fails", async () => {
@@ -98,9 +118,10 @@ describe("swiss-opendata", () => {
 });
 
 describe("amadeus", () => {
-  test("disabled without keys", () => {
-    expect(amadeus.available(mockCtx({}))).toBe(false);
-    expect(amadeus.available(mockCtx({}, { AMADEUS_CLIENT_ID: "x", AMADEUS_CLIENT_SECRET: "y" }))).toBe(true);
+  test("unavailable without keys or hosted key; direct with keys", () => {
+    expect(chooseMode(amadeus, mockCtx({}))).toBeNull();
+    expect(chooseMode(amadeus, mockCtx({}, { AMADEUS_CLIENT_ID: "x", AMADEUS_CLIENT_SECRET: "y" }))).toBe("direct");
+    expect(chooseMode(amadeus, { ...mockCtx({}), hostedKey: "jk_demo" })).toBe("hosted");
   });
 
   test("normalizes a flight offer (token + IATA codes)", async () => {
@@ -141,7 +162,7 @@ describe("amadeus", () => {
 
 describe("google-routes", () => {
   test("disabled without key; normalizes a drive", async () => {
-    expect(googleRoutes.available(mockCtx({}))).toBe(false);
+    expect(chooseMode(googleRoutes, mockCtx({}))).toBeNull();
     const ctx = mockCtx(
       { "directions/v2:computeRoutes": { routes: [{ duration: "5400s", distanceMeters: 58000 }] } },
       { GOOGLE_MAPS_API_KEY: "k" },
