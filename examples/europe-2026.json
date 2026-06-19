@@ -1,20 +1,17 @@
 {
-  "title": "Europe by Rail — July 2026 (Milan · Amalfi · Bernina · Paris · Barcelona · Madrid)",
+  "title": "Europe by Rail — July 2026 (Milan · Lakes · Bernina · Jungfrau · Paris · Provence · Barcelona · Madrid)",
   "defaults": { "results": 4 },
   "legs": [
     { "from": "Amsterdam", "to": "Milano", "date": "2026-07-04", "mode": "flight", "note": "Book a morning flight so Como is doable the same afternoon." },
     { "from": "Milano Centrale", "to": "Como", "date": "2026-07-04", "time": "14:00", "mode": "rail", "note": "Arrival-afternoon day trip to Lake Como." },
-    { "from": "Milano Centrale", "to": "Venezia Santa Lucia", "date": "2026-07-05", "time": "08:30", "mode": "rail", "note": "Day trip. NOTE: dropping this gives Amalfi a needed extra day — see plan caveats." },
-    { "from": "Milano Centrale", "to": "Napoli Centrale", "date": "2026-07-06", "time": "07:50", "mode": "rail", "manual": true, "note": "By train (preference). Frecciarossa/Italo — but summer-2026 works inflate it to ~7h (not the usual ~4h07). Earliest Italo 07:50→15:03 is the only departure that nearly catches the last Positano ferry (15:35); else car transfer or overnight Naples. Book trenitalia.com / italotreno.com." },
-    { "from": "Napoli (Molo Beverello)", "to": "Positano", "date": "2026-07-06", "mode": "ferry", "manual": true, "note": "Aim for the latest catchable sailing; if the 7h train lands ~15:03, the 15:35 ferry is a sprint — fallback is a car transfer. Operator sites (NLG, Positano.com)." },
-    { "from": "Positano", "to": "Napoli", "date": "2026-07-08", "mode": "ferry", "manual": true, "note": "EARLY ferry — Jul 8 is the repositioning day to reach Tirano before the booked Bernina. Amalfi = 2 nights (Jul 6, 7), depart Jul 8 AM." },
-    { "from": "Napoli", "to": "Milano", "date": "2026-07-08", "time": "11:00", "mode": "flight", "note": "MUST fly, not train — the same-day hop to Tirano for the booked Bernina is impossible with the ~7h train. Naples→Milan ~1h20." },
-    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-08", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (trenord.it). Arrive Tirano evening Jul 8 → overnight, ready for the 08:06 Bernina. Marked manual: Italian domestic regional isn't in the open APIs (they misroute via Switzerland)." },
+    { "from": "Milano Centrale", "to": "Venezia Santa Lucia", "date": "2026-07-05", "time": "08:30", "mode": "rail", "note": "Day trip (or overnight)." },
+    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-08", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (trenord.it). Jul 6–7 are open northern-lakes buffer (Como/Maggiore/Garda or Milan) before the Bernina — now relaxed, no Italy backtrack. Overnight Tirano for the 08:06 Bernina. Marked manual: Italian domestic regional isn't in the open APIs." },
     { "from": "Tirano", "to": "Chur", "date": "2026-07-09", "time": "08:06", "mode": "rail", "note": "BOOKED — Bernina Express, Tirano 08:06 → Chur 12:31, Jul 9. Panoramic, seat reservation held (rhb.ch)." },
-    { "from": "Chur", "to": "Lauterbrunnen", "date": "2026-07-09", "time": "12:45", "mode": "rail", "note": "Onward to the Jungfrau region right off the Bernina (~3h via Zürich/Bern + Interlaken Ost). Camp in Lauterbrunnen valley." },
-    { "from": "Lauterbrunnen", "to": "Paris", "date": "2026-07-11", "time": "08:00", "mode": "rail", "note": "Jungfrau → Paris via Interlaken Ost → Bern → TGV Lyria. ~6h, full travel day. Two camping nights (Jul 9, 10) in Lauterbrunnen first." },
-    { "from": "Paris", "to": "Barcelona", "date": "2026-07-13", "time": "09:00", "mode": "rail", "note": "Direct TGV ~6.5h, only ~2/day — book early." },
-    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-15", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
-    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-17", "mode": "flight", "note": "Fly home. Trip now ends Jul 17 (a day earlier) because the Bernina booking pulled the back half forward." }
+    { "from": "Chur", "to": "Lauterbrunnen", "date": "2026-07-09", "time": "12:45", "mode": "rail", "note": "Onward to the Jungfrau region right off the Bernina (~3h45 via Zürich/Bern + Interlaken Ost). Camp in Lauterbrunnen valley." },
+    { "from": "Lauterbrunnen", "to": "Paris", "date": "2026-07-11", "time": "08:00", "mode": "rail", "note": "Jungfrau → Paris via Interlaken Ost → Bern → TGV Lyria. ~6.5–7h. Two camping nights (Jul 9, 10) first." },
+    { "from": "Paris", "to": "Marseille", "date": "2026-07-13", "time": "09:00", "mode": "rail", "note": "South of France (replaces Amalfi). Direct TGV ~3h15. Base for Provence — Cassis/Calanques, Aix, Avignon day trips. (Swap to Avignon if you prefer villages over a city base.)" },
+    { "from": "Marseille", "to": "Barcelona", "date": "2026-07-15", "time": "10:00", "mode": "rail", "note": "Direct TGV ~4h40 (~1–2/day) — the reason Provence beats Nice here. Book early." },
+    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-17", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
+    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-19", "mode": "flight", "note": "Fly home. Trip now ends Jul 19 (South-of-France stop added 2 days vs the Amalfi version)." }
   ]
 }
