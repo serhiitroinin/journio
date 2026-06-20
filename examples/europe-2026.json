@@ -1,17 +1,17 @@
 {
-  "title": "Europe by Rail — July 2026 (Milan · Lakes · Bernina · Jungfrau · Paris · Provence · Barcelona · Madrid)",
+  "title": "Europe by Rail — July 2026 (Milan · Lakes · Bernina · Kandersteg · Paris · Provence · Barcelona · Madrid)",
   "defaults": { "results": 4 },
   "legs": [
     { "from": "Amsterdam", "to": "Milano", "date": "2026-07-04", "mode": "flight", "note": "Book a morning flight so Como is doable the same afternoon." },
     { "from": "Milano Centrale", "to": "Como", "date": "2026-07-04", "time": "14:00", "mode": "rail", "note": "Arrival-afternoon day trip to Lake Como." },
     { "from": "Milano Centrale", "to": "Venezia Santa Lucia", "date": "2026-07-05", "time": "08:30", "mode": "rail", "note": "Day trip (or overnight)." },
-    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-08", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (trenord.it). Jul 6–7 are open northern-lakes buffer (Como/Maggiore/Garda or Milan) before the Bernina — now relaxed, no Italy backtrack. Overnight Tirano for the 08:06 Bernina. Marked manual: Italian domestic regional isn't in the open APIs." },
-    { "from": "Tirano", "to": "Chur", "date": "2026-07-09", "time": "08:06", "mode": "rail", "note": "BOOKED — Bernina Express, Tirano 08:06 → Chur 12:31, Jul 9. Panoramic, seat reservation held (rhb.ch)." },
-    { "from": "Chur", "to": "Lauterbrunnen", "date": "2026-07-09", "time": "12:45", "mode": "rail", "note": "Onward to the Jungfrau region right off the Bernina (~3h45 via Zürich/Bern + Interlaken Ost). Camp in Lauterbrunnen valley." },
-    { "from": "Lauterbrunnen", "to": "Paris", "date": "2026-07-11", "time": "08:00", "mode": "rail", "note": "Jungfrau → Paris via Interlaken Ost → Bern → TGV Lyria. ~6.5–7h. Two camping nights (Jul 9, 10) first." },
-    { "from": "Paris", "to": "Marseille", "date": "2026-07-13", "time": "09:00", "mode": "rail", "note": "South of France (replaces Amalfi). Direct TGV ~3h15. Base for Provence — Cassis/Calanques, Aix, Avignon day trips. (Swap to Avignon if you prefer villages over a city base.)" },
-    { "from": "Marseille", "to": "Barcelona", "date": "2026-07-15", "time": "10:00", "mode": "rail", "note": "Direct TGV ~4h40 (~1–2/day) — the reason Provence beats Nice here. Book early." },
-    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-17", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
-    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-19", "mode": "flight", "note": "Fly home. Trip now ends Jul 19 (South-of-France stop added 2 days vs the Amalfi version)." }
+    { "from": "Milano Centrale", "to": "Tirano", "date": "2026-07-07", "mode": "rail", "manual": true, "note": "Trenord direct regionale ~2h20 (trenord.it). Jul 6 is an open northern-lakes buffer (Como/Maggiore/Garda) before the Bernina. Overnight Tirano for the 08:06 Bernina. Marked manual: Italian domestic regional isn't in the open APIs." },
+    { "from": "Tirano", "to": "Chur", "date": "2026-07-08", "time": "08:06", "mode": "rail", "note": "BOOKED — Bernina Express, Tirano 08:06 → Chur 12:31, Jul 8. Panoramic, seat reservation held (rhb.ch)." },
+    { "from": "Chur", "to": "Kandersteg", "date": "2026-07-08", "time": "12:45", "mode": "rail", "note": "Camping base (replaces Lauterbrunnen). ~3h32, 2 chg off the Bernina. Oeschinensee — turquoise UNESCO alpine lake, quieter than Lauterbrunnen; on the Lötschberg line toward France. Camping Rendez-vous Kandersteg." },
+    { "from": "Kandersteg", "to": "Paris", "date": "2026-07-10", "time": "08:30", "mode": "rail", "note": "Kandersteg → Paris via Bern → TGV Lyria. ~7h. Two camping nights (Jul 8, 9) first; Jul 9 = full day at Oeschinensee." },
+    { "from": "Paris", "to": "Marseille", "date": "2026-07-12", "time": "09:00", "mode": "rail", "note": "South of France (replaces Amalfi). Direct TGV ~3h15. Base for Provence — Cassis/Calanques, Aix, Avignon day trips. (Swap to Avignon if you prefer villages over a city base.)" },
+    { "from": "Marseille", "to": "Barcelona", "date": "2026-07-14", "time": "10:00", "mode": "rail", "note": "Direct TGV ~4h40 (~1–2/day) — the reason Provence beats Nice here. Book early." },
+    { "from": "Barcelona", "to": "Madrid", "date": "2026-07-16", "time": "10:00", "mode": "rail", "note": "AVE ~2.5–3h, frequent. Renfe has no public API — book on renfe.com / Trainline." },
+    { "from": "Madrid", "to": "Amsterdam", "date": "2026-07-18", "mode": "flight", "note": "Fly home. Trip ends Jul 18 (Bernina on Jul 8 pulled the back half one day earlier)." }
   ]
 }
